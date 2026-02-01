@@ -1,0 +1,19 @@
+name: zhiyipdf-checkin
+
+on:
+  schedule:
+    - cron: "0 2 * * *"
+  workflow_dispatch:
+
+jobs:
+  checkin:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+      - name: Run checkin
+        run: node scripts/zhiyipdf-checkin.mjs
+        env:
+          ZHIYI_COOKIE: ${{ secrets.ZHIYI_COOKIE }}
