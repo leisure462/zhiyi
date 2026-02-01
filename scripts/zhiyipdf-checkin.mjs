@@ -22,8 +22,9 @@ const response = await fetch(checkinUrl, {
 const payload = await response.json().catch(() => ({}));
 const message = typeof payload.message === "string" ? payload.message : "";
 const alreadyChecked = /already|checked|duplicate|已|重复/i.test(message);
+const okStatus = response.ok || response.status === 409 || alreadyChecked;
 
-if (!response.ok || (payload.success === false && !alreadyChecked)) {
+if (!okStatus || (payload.success === false && !alreadyChecked)) {
   throw new Error(`Check-in failed: ${response.status} ${JSON.stringify(payload)}`);
 }
 
