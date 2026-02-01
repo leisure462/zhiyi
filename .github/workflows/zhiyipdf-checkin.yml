@@ -16,4 +16,6 @@ jobs:
       - name: Run checkin
         run: node scripts/zhiyipdf-checkin.mjs
         env:
+          ZHIYI_COOKIES: ${{ secrets.ZHIYI_COOKIES }}
           ZHIYI_COOKIE: ${{ secrets.ZHIYI_COOKIE }}
+          FEISHU_WEBHOOK: ${{ secrets.FEISHU_WEBHOOK }}
