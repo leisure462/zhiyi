@@ -19,20 +19,19 @@ jobs:
           ZHIYI_COOKIES: ${{ secrets.ZHIYI_COOKIES }}
           ZHIYI_COOKIE: ${{ secrets.ZHIYI_COOKIE }}
           FEISHU_WEBHOOK: ${{ secrets.FEISHU_WEBHOOK }}
-      - name: Email notification
-        if: always()
+      - name: Email on failure
+        if: failure()
         uses: dawidd6/action-send-mail@v3
         with:
           server_address: ${{ secrets.SMTP_HOST }}
           server_port: ${{ secrets.SMTP_PORT }}
           username: ${{ secrets.SMTP_USERNAME }}
           password: ${{ secrets.SMTP_PASSWORD }}
-          subject: "ZhiyiPDF check-in ${{ job.status }}"
+          subject: "ZhiyiPDF check-in failed"
           to: ${{ secrets.MAIL_TO }}
           from: ${{ secrets.MAIL_FROM }}
           body: |
-            The scheduled ZhiyiPDF check-in finished.
-            Status: ${{ job.status }}
+            The scheduled ZhiyiPDF check-in failed.
             Repo: ${{ github.repository }}
             Workflow: ${{ github.workflow }}
             Run: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
