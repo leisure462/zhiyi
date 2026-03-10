@@ -1,0 +1,11 @@
+{
+  "name": "zhiyipdf-checkin",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "checkin": "node scripts/zhiyipdf-checkin.mjs"
+  },
+  "dependencies": {
+    "playwright": "1.58.2"
+  }
+}

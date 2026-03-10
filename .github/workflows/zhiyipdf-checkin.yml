@@ -12,12 +12,16 @@ jobs:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
         with:
-          node-version: "20"
+          node-version: "22"
+          cache: "npm"
+      - name: Install dependencies
+        run: npm ci
+      - name: Install Playwright browser
+        run: npx playwright install --with-deps chromium
       - name: Run checkin
-        run: node scripts/zhiyipdf-checkin.mjs
+        run: npm run checkin
         env:
-          ZHIYI_COOKIES: ${{ secrets.ZHIYI_COOKIES }}
-          ZHIYI_COOKIE: ${{ secrets.ZHIYI_COOKIE }}
+          ZHIYI_ACCOUNTS_JSON: ${{ secrets.ZHIYI_ACCOUNTS_JSON }}
           FEISHU_WEBHOOK: ${{ secrets.FEISHU_WEBHOOK }}
       - name: Email on failure
         if: failure()
